@@ -1,4 +1,4 @@
-require('./proof')(2, function (step, serialize, deepEqual, Strata, tmp) {
+require('./proof')(4, function (step, serialize, deepEqual, Strata, tmp) {
     var iterate = require('../..')
     var mvcc = require('mvcc')
     var versions = {}
@@ -19,6 +19,28 @@ require('./proof')(2, function (step, serialize, deepEqual, Strata, tmp) {
         serialize(__dirname + '/fixtures/skip.json', tmp, step())
     }, function () {
         strata.open(step())
+    }, function () {
+        iterate.forward(strata, comparator, versions, 'a', step())
+    }, function (iterator) {
+        var records = []
+        var versions = []
+        step(function () {
+            step(function () {
+                iterator.next(step())
+            }, function (record) {
+                if (record) {
+                    records.push(record.value)
+                    versions.push(record.version)
+                } else {
+                    step(null)
+                }
+            })()
+        }, function () {
+            iterator.unlock()
+        }, function () {
+            deepEqual(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'records')
+            deepEqual(versions, [ 1, 0, 2, 0, 2, 0, 1, 0, 0 ], 'versions')
+        })
     }, function () {
         iterate.reverse(strata, comparator, versions, 'i', step())
     }, function (iterator) {
