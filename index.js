@@ -1,11 +1,11 @@
 var cadence = require('cadence')
 var riffle = require('riffle')
 
-function Forward (comparator, versions, iterator, next) {
+function Forward (comparator, versions, iterator, record, key) {
     this._iterator = iterator
     this._comparator = comparator
     this._versions = versions
-    this._next = next
+    this._next = { record: record, key: key }
 }
 
 function valid (versions) {
@@ -13,17 +13,17 @@ function valid (versions) {
 }
 
 Forward.prototype.next = cadence(function (step) {
-    if (!this._next) return this._next
+    if (!this._next) return step(null)
     step(function () {
         var next = this._next
         step(function () {
             this._iterator.next(valid(this._versions), step())
-        }, function (candidate) {
-            if (candidate && this._comparator(candidate.value, next.value) == 0) {
-                next = candidate
+        }, function (record, key) {
+            if (key && this._comparator(key.value, next.key.value) == 0) {
+                next = { record: record, key: key }
             } else {
-                this._next = candidate
-                step(null, next)
+                this._next = record && { record: record, key: key }
+                step(null, next.record, next.key)
             }
         })()
     })
@@ -40,29 +40,29 @@ exports.forward = cadence(function (step, strata, comparator, versions, key) {
     }, function (iterator) {
         step (function () {
             iterator.next(valid(versions), step())
-        }, function (next) {
-            return new Forward(comparator, versions, iterator, next)
+        }, function (record, key) {
+            return new Forward(comparator, versions, iterator, record, key)
         })
     })
 })
 
-function Reverse (comparator, versions, iterator, next) {
+function Reverse (comparator, versions, iterator, record, key) {
     this._iterator = iterator
     this._comparator = comparator
     this._versions = versions
-    this._next = next
+    this._next = { record: record, key: key }
 }
 
 Reverse.prototype.next = cadence(function (step) {
-    if (!this._next) return this._next
+    if (!this._next) return step(null)
     step(function () {
         var next = this._next
         step(function () {
             this._iterator.next(valid(this._versions), step())
-        }, function (candidate) {
-            if (!candidate || this._comparator(candidate.value, next.value) != 0) {
-                this._next = candidate
-                step(null, next)
+        }, function (record, key) {
+            if (!key || this._comparator(key.value, next.key.value) != 0) {
+                this._next = record && { record: record, key: key }
+                step(null, next.record, next.key)
             }
         })()
     })
@@ -79,8 +79,8 @@ exports.reverse = cadence(function (step, strata, comparator, versions, key) {
     }, function (iterator) {
         step (function () {
             iterator.next(valid(versions), step())
-        }, function (next) {
-            return new Reverse(comparator, versions, iterator, next)
+        }, function (record, key) {
+            return new Reverse(comparator, versions, iterator, record, key)
         })
     })
 })
