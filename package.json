@@ -1,26 +1,26 @@
 {
     "name":             "skip",
-    "version":          "0.0.0",
+    "version":          "0.0.X",
     "author":           "Alan Gutierrez <alan@prettyrobots.com>",
     "description":      "Iterate an MVCC b-tree skipping defunct versions of the records.",
-    "url":              "http://bigeasy.github.com/mvcc",
+    "url":              "http://bigeasy.github.com/skip",
     "keywords":
     [
                         "btree", "leveldb", "levelup", "binary", "mvcc",
                         "database", "json", "b-tree", "concurrent", "persistence"
     ],
     "contributors":     [],
-    "homepage":         "https://github.com/bigeasy/mvcc",
-    "bugs":             "https://github.com/bigeasy/mvcc/issues",
+    "homepage":         "https://github.com/bigeasy/skip",
+    "bugs":             "https://github.com/bigeasy/skip/issues",
     "licenses":
     [{
                         "type": "MIT",
-                        "url": "http://github.com/bigeasy/mvcc/raw/master/LICENSE"
+                        "url": "http://github.com/bigeasy/skip/raw/master/LICENSE"
     }],
     "repository":
     {
                         "type": "git",
-                        "url": "http://github.com/bigeasy/mvcc.git"
+                        "url": "http://github.com/bigeasy/skip.git"
     },
     "dependencies":
     {
