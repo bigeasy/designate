@@ -1,6 +1,7 @@
-require('./proof')(1, function (step, serialize, deepEqual, Strata, tmp) {
+require('./proof')(2, function (step, serialize, deepEqual, Strata, tmp) {
     var iterate = require('../..')
     var mvcc = require('mvcc')
+    var visited = {}
     function extractor (record) {
         return record.value
     }
@@ -18,7 +19,7 @@ require('./proof')(1, function (step, serialize, deepEqual, Strata, tmp) {
     }, function () {
         strata.open(step())
     }, function () {
-        iterate.reverse(strata, comparator, { 0: true }, 'i', step())
+        iterate.reverse(strata, comparator, { 0: true }, 'i', visited, step())
     }, function (iterator) {
         var records = []
         step(function () {
@@ -36,5 +37,6 @@ require('./proof')(1, function (step, serialize, deepEqual, Strata, tmp) {
         })
     }, function (records) {
         deepEqual(records, [ 'i', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a' ], 'records')
+        deepEqual(Object.keys(visited), [ 0 ], 'visited')
     })
 })

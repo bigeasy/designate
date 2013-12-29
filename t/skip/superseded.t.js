@@ -1,7 +1,7 @@
-require('./proof')(4, function (step, serialize, deepEqual, Strata, tmp) {
+require('./proof')(6, function (step, serialize, deepEqual, Strata, tmp) {
     var iterate = require('../..')
     var mvcc = require('mvcc')
-    var versions = {}
+    var versions = {}, visited
     ; [ 0, 1, 2 ].forEach(function (version) { versions[version] = true })
     function extractor (record) {
         return record.value
@@ -20,7 +20,7 @@ require('./proof')(4, function (step, serialize, deepEqual, Strata, tmp) {
     }, function () {
         strata.open(step())
     }, function () {
-        iterate.forward(strata, comparator, versions, 'a', step())
+        iterate.forward(strata, comparator, versions, 'a', visited = {}, step())
     }, function (iterator) {
         var records = []
         var versions = []
@@ -38,11 +38,12 @@ require('./proof')(4, function (step, serialize, deepEqual, Strata, tmp) {
         }, function () {
             iterator.unlock()
         }, function () {
-            deepEqual(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'records')
-            deepEqual(versions, [ 1, 0, 2, 0, 2, 0, 1, 0, 0 ], 'versions')
+            deepEqual(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'forward records')
+            deepEqual(versions, [ 1, 0, 2, 0, 2, 0, 1, 0, 0 ], 'forward versions')
+            deepEqual(Object.keys(visited).sort(), [ 0, 1, 2 ], 'forward visited')
         })
     }, function () {
-        iterate.reverse(strata, comparator, versions, 'i', step())
+        iterate.reverse(strata, comparator, versions, 'i', visited = {}, step())
     }, function (iterator) {
         var records = []
         var versions = []
@@ -60,8 +61,9 @@ require('./proof')(4, function (step, serialize, deepEqual, Strata, tmp) {
         }, function () {
             iterator.unlock()
         }, function () {
-            deepEqual(records, [ 'i', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a' ], 'records')
-            deepEqual(versions, [ 0, 0, 1, 0, 2, 0, 2, 0, 1 ], 'versions')
+            deepEqual(records, [ 'i', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a' ], 'reverse records')
+            deepEqual(versions, [ 0, 0, 1, 0, 2, 0, 2, 0, 1 ], 'reverse versions')
+            deepEqual(Object.keys(visited).sort(), [ 0, 1, 2 ], 'reverse visited')
         })
     }, function () {
         strata.close(step())
