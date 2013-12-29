@@ -10,6 +10,12 @@ version encountered as a key with a boolean value of `true`.
 versions after merging an iterator into a primary tree so that an application
 can amend it's housekeeping to mark the versions in the set as merged.
 
+### Iterate Across Ignored Versions
+
+Although it was already implemented, it was not tested.
+
 ### Issue by Issue
 
  * Accumulate visited versions. #15.
+ * Forward iterate across invalid versions. #9.
+ * Reverse iterate across invalid versions. #8.
