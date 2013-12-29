@@ -78,7 +78,7 @@ Reverse.prototype.unlock = function () {
 }
 
 exports.reverse = cadence(function (step, strata, comparator, versions, visited, key) {
-    var composite = { value: key, version: Number.MAX_VALUE }
+    var composite = key ? { value: key, version: Number.MAX_VALUE } : null
     step(function () {
         riffle.reverse(strata, composite, step())
     }, function (iterator) {

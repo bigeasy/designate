@@ -8,4 +8,5 @@ the right-most record.
 ### Issue by Issue
 
  * Specify key as last parameter to iterator constructor. #20.
+ * Iterate backward from the right-most. #18.
  * Iterate forward from left-most record. #17.
