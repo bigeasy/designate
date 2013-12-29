@@ -1,7 +1,7 @@
 var cadence = require('cadence')
 var riffle = require('riffle')
 
-function Forward (comparator, versions, iterator, record, key, visited) {
+function Forward (comparator, versions, iterator, record, visited, key) {
     this._iterator = iterator
     this._comparator = comparator
     this._versions = versions
@@ -37,7 +37,7 @@ Forward.prototype.unlock = function () {
     this._iterator.unlock()
 }
 
-exports.forward = cadence(function (step, strata, comparator, versions, key, visited) {
+exports.forward = cadence(function (step, strata, comparator, versions, visited, key) {
     var composite = { value: key, version: 0 }
     step(function () {
         riffle.forward(strata, composite, step())
@@ -45,12 +45,12 @@ exports.forward = cadence(function (step, strata, comparator, versions, key, vis
         step (function () {
             iterator.next(valid(versions, visited), step())
         }, function (record, key) {
-            return new Forward(comparator, versions, iterator, record, key, visited)
+            return new Forward(comparator, versions, iterator, record, visited, key)
         })
     })
 })
 
-function Reverse (comparator, versions, iterator, record, key, visited) {
+function Reverse (comparator, versions, iterator, record, visited, key) {
     this._iterator = iterator
     this._comparator = comparator
     this._versions = versions
@@ -77,7 +77,7 @@ Reverse.prototype.unlock = function () {
     this._iterator.unlock()
 }
 
-exports.reverse = cadence(function (step, strata, comparator, versions, key, visited) {
+exports.reverse = cadence(function (step, strata, comparator, versions, visited, key) {
     var composite = { value: key, version: Number.MAX_VALUE }
     step(function () {
         riffle.reverse(strata, composite, step())
@@ -85,7 +85,7 @@ exports.reverse = cadence(function (step, strata, comparator, versions, key, vis
         step (function () {
             iterator.next(valid(versions, visited), step())
         }, function (record, key) {
-            return new Reverse(comparator, versions, iterator, record, key, visited)
+            return new Reverse(comparator, versions, iterator, record, visited, key)
         })
     })
 })

@@ -20,7 +20,7 @@ require('./proof')(6, function (step, serialize, deepEqual, Strata, tmp) {
     }, function () {
         strata.open(step())
     }, function () {
-        iterate.forward(strata, comparator, versions, 'a', visited = {}, step())
+        iterate.forward(strata, comparator, versions, visited = {}, 'a', step())
     }, function (iterator) {
         var records = []
         var versions = []
@@ -43,7 +43,7 @@ require('./proof')(6, function (step, serialize, deepEqual, Strata, tmp) {
             deepEqual(Object.keys(visited).sort(), [ 0, 1, 2 ], 'forward visited')
         })
     }, function () {
-        iterate.reverse(strata, comparator, versions, 'i', visited = {}, step())
+        iterate.reverse(strata, comparator, versions, visited = {}, 'i', step())
     }, function (iterator) {
         var records = []
         var versions = []

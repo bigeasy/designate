@@ -19,7 +19,7 @@ require('./proof')(2, function (step, serialize, deepEqual, Strata, tmp) {
     }, function () {
         strata.open(step())
     }, function () {
-        var forward = iterate.forward(strata, comparator, { 0: true }, 'a', visited, step())
+        var forward = iterate.forward(strata, comparator, { 0: true }, visited, 'a', step())
     }, function (iterator) {
         var records = []
         step(function () {
