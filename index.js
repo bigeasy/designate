@@ -38,7 +38,7 @@ Forward.prototype.unlock = function () {
 }
 
 exports.forward = cadence(function (step, strata, comparator, versions, visited, key) {
-    var composite = { value: key, version: 0 }
+    var composite = key ? { value: key, version: 0 } : null
     step(function () {
         riffle.forward(strata, composite, step())
     }, function (iterator) {

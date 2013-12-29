@@ -1,7 +1,7 @@
-require('./proof')(2, function (step, serialize, deepEqual, Strata, tmp) {
+require('./proof')(4, function (step, serialize, deepEqual, Strata, tmp) {
     var iterate = require('../..')
     var mvcc = require('mvcc')
-    var visited = {}
+    var visited
     function extractor (record) {
         return record.value
     }
@@ -19,7 +19,7 @@ require('./proof')(2, function (step, serialize, deepEqual, Strata, tmp) {
     }, function () {
         strata.open(step())
     }, function () {
-        var forward = iterate.forward(strata, comparator, { 0: true }, visited, 'a', step())
+        var forward = iterate.forward(strata, comparator, { 0: true }, visited = {}, 'a', step())
     }, function (iterator) {
         var records = []
         step(function () {
@@ -31,12 +31,32 @@ require('./proof')(2, function (step, serialize, deepEqual, Strata, tmp) {
             })()
         }, function () {
             iterator.unlock()
-            strata.close(step())
         }, function () {
             return records
         })
     }, function (records) {
-        deepEqual(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'records')
-        deepEqual(Object.keys(visited), [ 0 ], 'visited')
+        deepEqual(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'keyed records')
+        deepEqual(Object.keys(visited), [ 0 ], 'keyed visited')
+    }, function () {
+        var forward = iterate.forward(strata, comparator, { 0: true }, visited, step())
+    }, function (iterator) {
+        var records = []
+        step(function () {
+            step(function () {
+                iterator.next(step())
+            }, function (record) {
+                if (record) records.push(record.value)
+                else step(null)
+            })()
+        }, function () {
+            iterator.unlock()
+        }, function () {
+            return records
+        })
+    }, function (records) {
+        deepEqual(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'least records')
+        deepEqual(Object.keys(visited), [ 0 ], 'least visited')
+    }, function () {
+        strata.close(step())
     })
 })
