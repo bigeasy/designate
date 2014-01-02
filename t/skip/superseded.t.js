@@ -1,6 +1,6 @@
 require('./proof')(6, function (step, serialize, deepEqual, Strata, tmp) {
     var iterate = require('../..')
-    var mvcc = require('mvcc')
+    var revise = require('revise')
     var versions = {}, visited
     ; [ 0, 1, 2 ].forEach(function (version) { versions[version] = true })
     function extractor (record) {
@@ -10,8 +10,8 @@ require('./proof')(6, function (step, serialize, deepEqual, Strata, tmp) {
         return a < b ? -1 : a > b ? 1 : 0
     }
     var strata = new Strata({
-        extractor: mvcc.extractor(extractor),
-        comparator: mvcc.comparator(comparator),
+        extractor: revise.extractor(extractor),
+        comparator: revise.comparator(comparator),
         leafSize: 3, branchSize: 3,
         directory: tmp
     })
