@@ -1,6 +1,6 @@
 {
     "name":             "skip",
-    "version":          "0.0.3",
+    "version":          "0.0.4",
     "author":           "Alan Gutierrez <alan@prettyrobots.com>",
     "description":      "Iterate an MVCC b-tree skipping defunct versions of the records.",
     "url":              "http://bigeasy.github.com/skip",
