@@ -38,7 +38,7 @@ require('./proof')(4, function (step, serialize, deepEqual, Strata, tmp) {
         deepEqual(records, [ 'i', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a' ], 'keyed records')
         deepEqual(Object.keys(visited), [ 0 ], 'keyed visited')
     }, function () {
-        iterate.reverse(strata, comparator, { 0: true }, visited, step())
+        iterate.reverse(strata, comparator, { 0: true }, visited, 'h', step())
     }, function (iterator) {
         var records = []
         step(function () {
@@ -54,7 +54,7 @@ require('./proof')(4, function (step, serialize, deepEqual, Strata, tmp) {
             return records
         })
     }, function (records) {
-        deepEqual(records, [ 'i', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a' ], 'greatest records')
+        deepEqual(records, [ 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a' ], 'greatest records')
         deepEqual(Object.keys(visited), [ 0 ], 'greatest visited')
     }, function () {
         strata.close(step())
