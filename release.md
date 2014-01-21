@@ -1,5 +1,6 @@
 ### Issue by Issue
 
+ * Upgrade Cadence to 0.0.33. #34.
  * Upgrade Revise to 0.0.2. #33.
  * Upgrade Riffle to 0.0.5. #32.
  * Upgrade Strata to 0.0.16. #31.
