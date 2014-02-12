@@ -1,5 +1,6 @@
 ### Issue by Issue
 
+ * Remove never generated `/t/tmp` from `.gitignore`. #40.
  * Add discussion link to `README`. #39.
  * Upgrade Cadence to 0.0.35. #38.
  * Add contribution guilde. #37.
