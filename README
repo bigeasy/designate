@@ -2,6 +2,8 @@ Skip
 
 Iterate an MVCC b-tree skipping defunct versions of the records.
 
+    Discussion:     http://github.com/bigeasy/skip/issues/1
+
     Documentation:  http://bigeasy.github.io/skip
     Source:         http://github.com/bigeasy/skip
     Issues:         http://github.com/bigeasy/skip/issues
