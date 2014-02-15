@@ -58,7 +58,7 @@ require('./proof')(6, function (step, serialize, deepEqual, Strata, tmp) {
         }, function () {
             iterator.unlock()
         }, function () {
-            return records
+            return [ records ]
         })
     }, function (records) {
         deepEqual(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'least records')

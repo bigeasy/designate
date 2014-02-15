@@ -1,5 +1,6 @@
 ### Issue by Issue
 
+ * Upgrade Proof to 0.0.42. #41.
  * Remove never generated `/t/tmp` from `.gitignore`. #40.
  * Add discussion link to `README`. #39.
  * Upgrade Cadence to 0.0.35. #38.
