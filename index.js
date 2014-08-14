@@ -33,8 +33,8 @@ Forward.prototype.next = cadence(function (step) {
     })
 })
 
-Forward.prototype.unlock = function () {
-    this._iterator.unlock()
+Forward.prototype.unlock = function (callback) {
+    this._iterator.unlock(callback)
 }
 
 exports.forward = cadence(function (step, strata, comparator, versions, visited, key) {
@@ -73,8 +73,8 @@ Reverse.prototype.next = cadence(function (step) {
     })
 })
 
-Reverse.prototype.unlock = function () {
-    this._iterator.unlock()
+Reverse.prototype.unlock = function (callback) {
+    this._iterator.unlock(callback)
 }
 
 exports.reverse = cadence(function (step, strata, comparator, versions, visited, key) {

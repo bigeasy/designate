@@ -36,7 +36,7 @@ require('./proof')(6, function (step, serialize, deepEqual, Strata, tmp) {
                 }
             })()
         }, function () {
-            iterator.unlock()
+            iterator.unlock(step())
         }, function () {
             deepEqual(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'forward records')
             deepEqual(versions, [ 1, 0, 2, 0, 2, 0, 1, 0, 0 ], 'forward versions')
@@ -59,7 +59,7 @@ require('./proof')(6, function (step, serialize, deepEqual, Strata, tmp) {
                 }
             })()
         }, function () {
-            iterator.unlock()
+            iterator.unlock(step())
         }, function () {
             deepEqual(records, [ 'i', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a' ], 'reverse records')
             deepEqual(versions, [ 0, 0, 1, 0, 2, 0, 2, 0, 1 ], 'reverse versions')
