@@ -1,5 +1,6 @@
 ### Issue by Issue
 
+ * Upgrade Riffle to 0.0.7. #52.
  * Upgrade Strata to 0.0.23. #51.
  * Upgrade Proof to 0.0.47. #50.
  * Upgrade Strata to 0.0.17. #44.
