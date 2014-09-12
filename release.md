@@ -1,5 +1,6 @@
 ### Issue by Issue
 
+ * Upgrade Strata to 0.0.23. #51.
  * Upgrade Proof to 0.0.47. #50.
  * Upgrade Strata to 0.0.17. #44.
  * Upgrade Proof to 0.0.44. #43.
