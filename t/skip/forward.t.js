@@ -31,13 +31,13 @@ require('./proof')(6, function (step, serialize, deepEqual, Strata, tmp) {
                     keys.push(key.value)
                     sizes.push(size)
                 } else {
-                    step(null)
+                    return [ step ]
                 }
             })()
         }, function () {
             iterator.unlock(step())
         }, function () {
-            return step(null, records, keys, sizes)
+            return [ step, records, keys, sizes ]
         })
     }, function (records, keys, sizes) {
         deepEqual(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'keyed records')
@@ -53,7 +53,7 @@ require('./proof')(6, function (step, serialize, deepEqual, Strata, tmp) {
                 iterator.next(step())
             }, function (record) {
                 if (record) records.push(record.value)
-                else step(null)
+                else return [ step ]
             })()
         }, function () {
             iterator.unlock(step())

@@ -32,7 +32,7 @@ require('./proof')(6, function (step, serialize, deepEqual, Strata, tmp) {
                     records.push(record.value)
                     versions.push(record.version)
                 } else {
-                    step(null)
+                    return [ step ]
                 }
             })()
         }, function () {
@@ -55,7 +55,7 @@ require('./proof')(6, function (step, serialize, deepEqual, Strata, tmp) {
                     records.push(record.value)
                     versions.push(record.version)
                 } else {
-                    step(null)
+                    return [ step ]
                 }
             })()
         }, function () {
