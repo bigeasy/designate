@@ -17,7 +17,7 @@ function valid (versions, visited) {
 }
 
 Forward.prototype.next = cadence(function (step) {
-    if (!this._next) return step(null)
+    if (!this._next) return []
     step(function () {
         var next = this._next
         step(function () {
@@ -27,7 +27,7 @@ Forward.prototype.next = cadence(function (step) {
                 next = { record: record, key: key, size: size }
             } else {
                 this._next = record && { record: record, key: key, size: size }
-                step(null, next.record, next.key, next.size)
+                return [ step, next.record, next.key, next.size ]
             }
         })()
     })
@@ -59,7 +59,7 @@ function Reverse (comparator, versions, iterator, record, visited, key, size) {
 }
 
 Reverse.prototype.next = cadence(function (step) {
-    if (!this._next) return step(null)
+    if (!this._next) return []
     step(function () {
         var next = this._next
         step(function () {
@@ -67,7 +67,7 @@ Reverse.prototype.next = cadence(function (step) {
         }, function (record, key, size) {
             if (!key || this._comparator(key.value, next.key.value) != 0) {
                 this._next = record && { record: record, key: key, size: size }
-                step(null, next.record, next.key, next.size)
+                return [ step, next.record, next.key, next.size ]
             }
         })()
     })
