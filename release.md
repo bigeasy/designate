@@ -1,5 +1,6 @@
 ### Issue by Issue
 
+ * Upgrade Cadence to 0.0.41. #58.
  * Upgrade Strata to 0.0.26. #57.
  * Upgrade Proof to 0.0.48. #56.
  * Upgrade Riffle to 0.0.8. #55.

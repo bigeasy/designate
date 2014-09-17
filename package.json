@@ -23,7 +23,7 @@
     },
     "dependencies":
     {
-                        "cadence":            "0.0.40",
+                        "cadence":            "0.0.41",
                         "riffle":             "0.0.8"
     },
     "devDependencies":
