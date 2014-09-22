@@ -29,7 +29,7 @@
     "devDependencies":
     {
                         "proof":              "0.0.48",
-                        "b-tree":             "0.0.26",
+                        "b-tree":             "0.0.27",
                         "revise":             "0.0.2"
     },
     "scripts":
