@@ -1,4 +1,4 @@
-require('./proof')(6, function (step, serialize, deepEqual, Strata, tmp) {
+require('./proof')(6, function (step, assert) {
     var iterate = require('../..')
     var revise = require('revise')
     var visited
@@ -40,10 +40,10 @@ require('./proof')(6, function (step, serialize, deepEqual, Strata, tmp) {
             return [ step, records, keys, sizes ]
         })
     }, function (records, keys, sizes) {
-        deepEqual(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'keyed records')
-        deepEqual(keys, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'keyed keys')
-        deepEqual(sizes, [ 76, 76, 76, 76, 76, 76, 76, 76, 76 ], 'keyed sizes')
-        deepEqual(Object.keys(visited), [ 0 ], 'keyed visited')
+        assert(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'keyed records')
+        assert(keys, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'keyed keys')
+        assert(sizes, [ 76, 76, 76, 76, 76, 76, 76, 76, 76 ], 'keyed sizes')
+        assert(Object.keys(visited), [ 0 ], 'keyed visited')
     }, function () {
         var forward = iterate.forward(strata, comparator, { 0: true }, visited, step())
     }, function (iterator) {
@@ -61,8 +61,8 @@ require('./proof')(6, function (step, serialize, deepEqual, Strata, tmp) {
             return [ records ]
         })
     }, function (records) {
-        deepEqual(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'least records')
-        deepEqual(Object.keys(visited), [ 0 ], 'least visited')
+        assert(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'least records')
+        assert(Object.keys(visited), [ 0 ], 'least visited')
     }, function () {
         strata.close(step())
     })

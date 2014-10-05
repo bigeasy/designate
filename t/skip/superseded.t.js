@@ -1,4 +1,4 @@
-require('./proof')(6, function (step, serialize, deepEqual, Strata, tmp) {
+require('./proof')(6, function (step, assert) {
     var iterate = require('../..')
     var revise = require('revise')
     var versions = {}, visited
@@ -38,9 +38,9 @@ require('./proof')(6, function (step, serialize, deepEqual, Strata, tmp) {
         }, function () {
             iterator.unlock(step())
         }, function () {
-            deepEqual(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'forward records')
-            deepEqual(versions, [ 1, 0, 2, 0, 2, 0, 1, 0, 0 ], 'forward versions')
-            deepEqual(Object.keys(visited).sort(), [ 0, 1, 2 ], 'forward visited')
+            assert(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'forward records')
+            assert(versions, [ 1, 0, 2, 0, 2, 0, 1, 0, 0 ], 'forward versions')
+            assert(Object.keys(visited).sort(), [ 0, 1, 2 ], 'forward visited')
         })
     }, function () {
         iterate.reverse(strata, comparator, versions, visited = {}, 'i', step())
@@ -61,9 +61,9 @@ require('./proof')(6, function (step, serialize, deepEqual, Strata, tmp) {
         }, function () {
             iterator.unlock(step())
         }, function () {
-            deepEqual(records, [ 'i', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a' ], 'reverse records')
-            deepEqual(versions, [ 0, 0, 1, 0, 2, 0, 2, 0, 1 ], 'reverse versions')
-            deepEqual(Object.keys(visited).sort(), [ 0, 1, 2 ], 'reverse visited')
+            assert(records, [ 'i', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a' ], 'reverse records')
+            assert(versions, [ 0, 0, 1, 0, 2, 0, 2, 0, 1 ], 'reverse versions')
+            assert(Object.keys(visited).sort(), [ 0, 1, 2 ], 'reverse visited')
         })
     }, function () {
         strata.close(step())
