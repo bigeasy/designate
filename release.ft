@@ -1,5 +1,6 @@
 ### Issue by Issue
 
+ * Rename main module to `skip.js`. #68.
  * Upgrade Revise to 0.0.3. #66.
  * Upgrade Proof to 0.0.50. #64.
  * Upgrade Cadence to 0.0.43. #63.

@@ -16,6 +16,7 @@
                         "type": "MIT",
                         "url": "http://github.com/bigeasy/skip/raw/master/LICENSE"
     }],
+    "main":             "skip",
     "repository":
     {
                         "type": "git",
