@@ -1,5 +1,6 @@
 ### Issue by Issue
 
+ * Use a `prove` named function in tests. #71.
  * Rename `step` to `async`. #70.
  * Remove `require.t.js`. #69.
  * Rename main module to `skip.js`. #68.

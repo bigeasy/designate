@@ -1,4 +1,6 @@
-require('./proof')(6, function (async, assert) {
+require('./proof')(6, prove)
+
+function prove (async, assert) {
     var iterate = require('../..')
     var revise = require('revise')
     var versions = {}, visited
@@ -68,4 +70,4 @@ require('./proof')(6, function (async, assert) {
     }, function () {
         strata.close(async())
     })
-})
+}
