@@ -27,14 +27,14 @@ function prove (async, assert) {
         var records = []
         var versions = []
         async(function () {
-            async(function () {
+            var loop = async(function () {
                 iterator.next(async())
             }, function (record) {
                 if (record) {
                     records.push(record.value)
                     versions.push(record.version)
                 } else {
-                    return [ async ]
+                    return [ loop ]
                 }
             })()
         }, function () {
@@ -50,14 +50,14 @@ function prove (async, assert) {
         var records = []
         var versions = []
         async(function () {
-            async(function () {
+            var loop = async(function () {
                 iterator.next(async())
             }, function (record) {
                 if (record) {
                     records.push(record.value)
                     versions.push(record.version)
                 } else {
-                    return [ async ]
+                    return [ loop ]
                 }
             })()
         }, function () {

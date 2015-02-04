@@ -25,7 +25,7 @@ function prove (async, assert) {
     }, function (iterator) {
         var records = [], keys = [], sizes = []
         async(function () {
-            async(function () {
+            var loop  = async(function () {
                 iterator.next(async())
             }, function (record, key, size) {
                 if (record) {
@@ -33,13 +33,13 @@ function prove (async, assert) {
                     keys.push(key.value)
                     sizes.push(size)
                 } else {
-                    return [ async, records ]
+                    return [ loop, records ]
                 }
             })()
         }, function () {
             iterator.unlock(async())
         }, function () {
-            return [ async, records, keys, sizes ]
+            return [ records, keys, sizes ]
         })
     }, function (records, keys, sizes) {
         assert(records, [ 'i', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a' ], 'keyed records')
@@ -51,11 +51,11 @@ function prove (async, assert) {
     }, function (iterator) {
         var records = []
         async(function () {
-            async(function () {
+            var loop = async(function () {
                 iterator.next(async())
             }, function (record) {
                 if (record) records.push(record.value)
-                else return [ async, records ]
+                else return [ loop, records ]
             })()
         }, function () {
             iterator.unlock(async())
