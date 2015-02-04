@@ -20,14 +20,14 @@ Forward.prototype.next = cadence(function (async) {
     if (!this._next) return []
     async(function () {
         var next = this._next
-        async(function () {
+        var loop = async(function () {
             this._iterator.next(valid(this._versions, this._visited), async())
         }, function (record, key, size) {
             if (key && this._comparator(key.value, next.key.value) == 0) {
                 next = { record: record, key: key, size: size }
             } else {
                 this._next = record && { record: record, key: key, size: size }
-                return [ async, next.record, next.key, next.size ]
+                return [ loop, next.record, next.key, next.size ]
             }
         })()
     })
@@ -62,12 +62,12 @@ Reverse.prototype.next = cadence(function (async) {
     if (!this._next) return []
     async(function () {
         var next = this._next
-        async(function () {
+        var loop = async(function () {
             this._iterator.next(valid(this._versions, this._visisted), async())
         }, function (record, key, size) {
             if (!key || this._comparator(key.value, next.key.value) != 0) {
                 this._next = record && { record: record, key: key, size: size }
-                return [ async, next.record, next.key, next.size ]
+                return [ loop, next.record, next.key, next.size ]
             }
         })()
     })
