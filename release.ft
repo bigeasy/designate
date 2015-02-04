@@ -1,5 +1,6 @@
 ### Issue by Issue
 
+ * Remove `require.t.js`. #69.
  * Rename main module to `skip.js`. #68.
  * Upgrade Revise to 0.0.3. #66.
  * Upgrade Proof to 0.0.50. #64.
