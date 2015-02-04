@@ -1,4 +1,4 @@
-require('./proof')(6, function (step, assert) {
+require('./proof')(6, function (async, assert) {
     var iterate = require('../..')
     var revise = require('revise')
     var versions = {}, visited
@@ -15,57 +15,57 @@ require('./proof')(6, function (step, assert) {
         leafSize: 3, branchSize: 3,
         directory: tmp
     })
-    step(function () {
-        serialize(__dirname + '/fixtures/skip.json', tmp, step())
+    async(function () {
+        serialize(__dirname + '/fixtures/skip.json', tmp, async())
     }, function () {
-        strata.open(step())
+        strata.open(async())
     }, function () {
-        iterate.forward(strata, comparator, versions, visited = {}, 'a', step())
+        iterate.forward(strata, comparator, versions, visited = {}, 'a', async())
     }, function (iterator) {
         var records = []
         var versions = []
-        step(function () {
-            step(function () {
-                iterator.next(step())
+        async(function () {
+            async(function () {
+                iterator.next(async())
             }, function (record) {
                 if (record) {
                     records.push(record.value)
                     versions.push(record.version)
                 } else {
-                    return [ step ]
+                    return [ async ]
                 }
             })()
         }, function () {
-            iterator.unlock(step())
+            iterator.unlock(async())
         }, function () {
             assert(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'forward records')
             assert(versions, [ 1, 0, 2, 0, 2, 0, 1, 0, 0 ], 'forward versions')
             assert(Object.keys(visited).sort(), [ 0, 1, 2 ], 'forward visited')
         })
     }, function () {
-        iterate.reverse(strata, comparator, versions, visited = {}, 'i', step())
+        iterate.reverse(strata, comparator, versions, visited = {}, 'i', async())
     }, function (iterator) {
         var records = []
         var versions = []
-        step(function () {
-            step(function () {
-                iterator.next(step())
+        async(function () {
+            async(function () {
+                iterator.next(async())
             }, function (record) {
                 if (record) {
                     records.push(record.value)
                     versions.push(record.version)
                 } else {
-                    return [ step ]
+                    return [ async ]
                 }
             })()
         }, function () {
-            iterator.unlock(step())
+            iterator.unlock(async())
         }, function () {
             assert(records, [ 'i', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a' ], 'reverse records')
             assert(versions, [ 0, 0, 1, 0, 2, 0, 2, 0, 1 ], 'reverse versions')
             assert(Object.keys(visited).sort(), [ 0, 1, 2 ], 'reverse visited')
         })
     }, function () {
-        strata.close(step())
+        strata.close(async())
     })
 })
