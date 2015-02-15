@@ -1,6 +1,6 @@
 {
     "name":             "skip",
-    "version":          "0.0.12",
+    "version":          "0.0.13",
     "author":           "Alan Gutierrez <alan@prettyrobots.com>",
     "description":      "Iterate an MVCC b-tree skipping defunct versions of the records.",
     "keywords":
