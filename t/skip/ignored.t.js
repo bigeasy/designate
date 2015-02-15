@@ -11,7 +11,7 @@ function prove (async, assert) {
     function comparator (a, b) {
         return a < b ? -1 : a > b ? 1 : 0
     }
-    var strata = new Strata({
+    var strata = createStrata({
         extractor: revise.extractor(extractor),
         comparator: revise.comparator(comparator),
         leafSize: 3, branchSize: 3,
@@ -29,13 +29,14 @@ function prove (async, assert) {
         async(function () {
             var loop = async(function () {
                 iterator.next(async())
-            }, function (record) {
-                if (record) {
-                    records.push(record.value)
-                    versions.push(record.version)
-                } else {
+            }, function (items) {
+                if (items == null) {
                     return [ loop ]
                 }
+                items.forEach(function (item) {
+                    records.push(item.record.value)
+                    versions.push(item.record.version)
+                })
             })()
         }, function () {
             iterator.unlock(async())
@@ -52,13 +53,14 @@ function prove (async, assert) {
         async(function () {
             var loop = async(function () {
                 iterator.next(async())
-            }, function (record) {
-                if (record) {
-                    records.push(record.value)
-                    versions.push(record.version)
-                } else {
+            }, function (items) {
+                if (items == null) {
                     return [ loop ]
                 }
+                items.forEach(function (item) {
+                    records.push(item.record.value)
+                    versions.push(item.record.version)
+                })
             })()
         }, function () {
             iterator.unlock(async())

@@ -25,13 +25,13 @@
     "dependencies":
     {
                         "cadence":            "0.0.50",
-                        "riffle":             "0.0.12"
+                        "riffle":             "0.0.14"
     },
     "devDependencies":
     {
                         "proof":              "0.0.50",
                         "rimraf":             "~2.2",
-                        "b-tree":             "0.0.30",
+                        "b-tree":             "0.0.33",
                         "revise":             "0.0.4"
     },
     "scripts":

@@ -1,4 +1,4 @@
-require('./proof')(6, prove)
+require('./proof')(4, prove)
 
 function prove (async, assert) {
     var iterate = require('../..')
@@ -10,7 +10,7 @@ function prove (async, assert) {
     function comparator (a, b) {
         return a < b ? -1 : a > b ? 1 : 0
     }
-    var strata = new Strata({
+    var strata = createStrata({
         extractor: revise.extractor(extractor),
         comparator: revise.comparator(comparator),
         leafSize: 3, branchSize: 3,
@@ -23,29 +23,23 @@ function prove (async, assert) {
     }, function () {
         var forward = iterate.forward(strata, comparator, { 0: true }, visited = {}, 'a', async())
     }, function (iterator) {
-        var records = [], keys = [], sizes = []
+        var records = []
         async(function () {
             var loop = async(function () {
                 iterator.next(async())
-            }, function (record, key, size) {
-                if (record) {
-                    records.push(record.value)
-                    keys.push(key.value)
-                    sizes.push(size)
-                } else {
+            }, function (items) {
+                if (items == null) {
                     return [ loop ]
                 }
+                items.forEach(function (item) {
+                    records.push(item.record.value)
+                })
             })()
         }, function () {
+            assert(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'keyed records')
+            assert(Object.keys(visited), [ 0 ], 'keyed visited')
             iterator.unlock(async())
-        }, function () {
-            return [ records, keys, sizes ]
         })
-    }, function (records, keys, sizes) {
-        assert(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'keyed records')
-        assert(keys, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'keyed keys')
-        assert(sizes, [ 76, 76, 76, 76, 76, 76, 76, 76, 76 ], 'keyed sizes')
-        assert(Object.keys(visited), [ 0 ], 'keyed visited')
     }, function () {
         var forward = iterate.forward(strata, comparator, { 0: true }, visited, async())
     }, function (iterator) {
@@ -53,18 +47,19 @@ function prove (async, assert) {
         async(function () {
             var loop = async(function () {
                 iterator.next(async())
-            }, function (record) {
-                if (record) records.push(record.value)
-                else return [ loop ]
+            }, function (items) {
+                if (items == null) {
+                    return [ loop ]
+                }
+                items.forEach(function (item) {
+                    records.push(item.record.value)
+                })
             })()
         }, function () {
+            assert(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'least records')
+            assert(Object.keys(visited), [ 0 ], 'least visited')
             iterator.unlock(async())
-        }, function () {
-            return [ records ]
         })
-    }, function (records) {
-        assert(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'least records')
-        assert(Object.keys(visited), [ 0 ], 'least visited')
     }, function () {
         strata.close(async())
     })
