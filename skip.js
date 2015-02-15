@@ -1,4 +1,4 @@
-var cadence = require('cadence')
+var cadence = require('cadence/redux')
 var riffle = require('riffle')
 
 function Forward (comparator, versions, iterator, record, visited, key, size) {
