@@ -1,10 +1,9 @@
-require('./proof')(6, prove)
+require('./proof')(4, prove)
 
 function prove (async, assert) {
-    var iterate = require('../..')
+    var designate = require('../..')
     var revise = require('revise')
-    var versions = {}, visited
-    ; [ 0, 1, 2 ].forEach(function (version) { versions[version] = true })
+    var visited
     function extractor (record) {
         return record.value
     }
@@ -18,14 +17,13 @@ function prove (async, assert) {
         directory: tmp
     })
     async(function () {
-        serialize(__dirname + '/fixtures/skip.json', tmp, async())
+        serialize(__dirname + '/fixtures/nine.json', tmp, async())
     }, function () {
         strata.open(async())
     }, function () {
-        iterate.forward(strata, comparator, versions, visited = {}, 'a', async())
+        var forward = designate.forward(strata, comparator, { 0: true }, visited = {}, 'a', async())
     }, function (iterator) {
         var records = []
-        var versions = []
         async(function () {
             var loop = async(function () {
                 iterator.next(async())
@@ -35,21 +33,17 @@ function prove (async, assert) {
                 }
                 items.forEach(function (item) {
                     records.push(item.record.value)
-                    versions.push(item.record.version)
                 })
             })()
         }, function () {
+            assert(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'keyed records')
+            assert(Object.keys(visited), [ 0 ], 'keyed visited')
             iterator.unlock(async())
-        }, function () {
-            assert(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'forward records')
-            assert(versions, [ 1, 0, 2, 0, 2, 0, 1, 0, 0 ], 'forward versions')
-            assert(Object.keys(visited).sort(), [ 0, 1, 2 ], 'forward visited')
         })
     }, function () {
-        iterate.reverse(strata, comparator, versions, visited = {}, 'i', async())
+        var forward = designate.forward(strata, comparator, { 0: true }, visited, async())
     }, function (iterator) {
         var records = []
-        var versions = []
         async(function () {
             var loop = async(function () {
                 iterator.next(async())
@@ -59,15 +53,12 @@ function prove (async, assert) {
                 }
                 items.forEach(function (item) {
                     records.push(item.record.value)
-                    versions.push(item.record.version)
                 })
             })()
         }, function () {
+            assert(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'least records')
+            assert(Object.keys(visited), [ 0 ], 'least visited')
             iterator.unlock(async())
-        }, function () {
-            assert(records, [ 'i', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a' ], 'reverse records')
-            assert(versions, [ 0, 0, 1, 0, 2, 0, 2, 0, 1 ], 'reverse versions')
-            assert(Object.keys(visited).sort(), [ 0, 1, 2 ], 'reverse visited')
         })
     }, function () {
         strata.close(async())

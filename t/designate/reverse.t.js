@@ -1,7 +1,7 @@
 require('./proof')(4, prove)
 
 function prove (async, assert) {
-    var iterate = require('../..')
+    var designate = require('../..')
     var revise = require('revise')
     var visited = {}
     function extractor (record) {
@@ -21,7 +21,7 @@ function prove (async, assert) {
     }, function () {
         strata.open(async())
     }, function () {
-        iterate.reverse(strata, comparator, { 0: true }, visited, 'i', async())
+        designate.reverse(strata, comparator, { 0: true }, visited, 'i', async())
     }, function (iterator) {
         var records = []
         async(function () {
@@ -41,7 +41,7 @@ function prove (async, assert) {
             iterator.unlock(async())
         })
     }, function () {
-        iterate.reverse(strata, comparator, { 0: true }, visited, 'h', async())
+        designate.reverse(strata, comparator, { 0: true }, visited, 'h', async())
     }, function (iterator) {
         var records = []
         async(function () {
