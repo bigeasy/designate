@@ -1,8 +1,9 @@
-require('./proof')(4, prove)
+require('./proof')(2, prove)
 
 function prove (async, assert) {
     var designate = require('../..')
     var revise = require('revise')
+    var riffle = require('riffle')
     var visited = {}
     function extractor (record) {
         return record.value
@@ -21,44 +22,27 @@ function prove (async, assert) {
     }, function () {
         strata.open(async())
     }, function () {
-        designate.reverse(strata, comparator, { 0: true }, visited, 'i', async())
+        riffle.reverse(strata, { value: 'i' }, async())
     }, function (iterator) {
+        var designator = designate.reverse(comparator, { 0: true }, visited, iterator)
         var records = []
         async(function () {
             var loop  = async(function () {
-                iterator.next(async())
-            }, function (items) {
-                if (items == null) {
+                designator.next(async())
+            }, function (more) {
+                if (more) {
+                    var item
+                    while (item = designator.get()) {
+                        records.push(item.record.value)
+                    }
+                } else {
                     return [ loop ]
                 }
-                items.forEach(function (item) {
-                    records.push(item.record.value)
-                })
             })()
         }, function () {
             assert(records, [ 'i', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a' ], 'keyed records')
             assert(Object.keys(visited), [ 0 ], 'keyed visited')
-            iterator.unlock(async())
-        })
-    }, function () {
-        designate.reverse(strata, comparator, { 0: true }, visited, 'h', async())
-    }, function (iterator) {
-        var records = []
-        async(function () {
-            var loop = async(function () {
-                iterator.next(async())
-            }, function (items) {
-                if (items == null) {
-                    return [ loop ]
-                }
-                items.forEach(function (item) {
-                    records.push(item.record.value)
-                })
-            })()
-        }, function () {
-            assert(records, [ 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a' ], 'greatest records')
-            assert(Object.keys(visited), [ 0 ], 'greatest visited')
-            iterator.unlock(async())
+            designator.unlock(async())
         })
     }, function () {
         strata.close(async())

@@ -24,14 +24,14 @@
     },
     "dependencies":
     {
-                        "cadence":            "0.0.50",
-                        "riffle":             "0.0.14"
+                        "cadence":            "0.0.50"
     },
     "devDependencies":
     {
                         "proof":              "0.0.50",
+                        "riffle":             "0.0.16",
                         "rimraf":             "~2.2",
-                        "b-tree":             "0.0.33",
+                        "b-tree":             "0.0.34",
                         "revise":             "0.0.4"
     },
     "scripts":
