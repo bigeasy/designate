@@ -1,4 +1,4 @@
-var cadence = require('cadence/redux')
+var cadence = require('cadence')
 
 function Designator (comparator, forward, versions, visited, iterator) {
     this._comparator = comparator

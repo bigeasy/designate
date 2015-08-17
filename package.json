@@ -24,7 +24,7 @@
     },
     "dependencies":
     {
-                        "cadence":            "0.0.52"
+                        "cadence":            "0.2.5"
     },
     "devDependencies":
     {
