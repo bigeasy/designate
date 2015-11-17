@@ -27,7 +27,7 @@
                         "proof":              "0.0.56",
                         "riffle":             "0.0.18",
                         "rimraf":             "~2.2",
-                        "b-tree":             "0.0.39",
+                        "b-tree":             "0.0.40",
                         "revise":             "0.0.4"
     },
     "scripts":

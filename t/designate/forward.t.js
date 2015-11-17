@@ -36,7 +36,7 @@ function prove (async, assert) {
                         records.push(item.record.value)
                     }
                 } else {
-                    return [ loop ]
+                    return [ loop.break ]
                 }
             })()
         }, function () {
