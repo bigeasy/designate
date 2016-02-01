@@ -24,11 +24,11 @@
     },
     "devDependencies":
     {
-                        "proof":              "1.x",
-                        "riffle":             "1.x",
-                        "rimraf":             "2.5.1",
                         "b-tree":             "1.x",
-                        "revise":             "1.x"
+                        "proof":              "1.x",
+                        "revise":             "1.x",
+                        "riffle":             "1.x",
+                        "rimraf":             "2.5.1"
     },
     "scripts":
     {
