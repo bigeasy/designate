@@ -25,10 +25,10 @@
     "devDependencies":
     {
                         "proof":              "1.x",
-                        "riffle":             "0.0.19",
+                        "riffle":             "1.x",
                         "rimraf":             "2.5.1",
                         "b-tree":             "1.x",
-                        "revise":             "0.0.4"
+                        "revise":             "1.x"
     },
     "scripts":
     {
