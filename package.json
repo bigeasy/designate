@@ -29,7 +29,7 @@
                             "proof":                        "1.0.x",
                             "revise":                       "1.0.x",
                             "riffle":                       "1.0.x",
-                            "rimraf":                       "2.5.1"
+                            "rimraf":                       "2.5.4"
     },
     "main":                 "designate",
     "scripts":
