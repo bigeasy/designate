@@ -21,14 +21,14 @@
     },
     "dependencies":
     {
-                            "cadence":                      "1.x"
+                            "cadence":                      "1.0.x"
     },
     "devDependencies":
     {
-                            "b-tree":                       "1.x",
-                            "proof":                        "1.x",
-                            "revise":                       "1.x",
-                            "riffle":                       "1.x",
+                            "b-tree":                       "1.0.x",
+                            "proof":                        "1.0.x",
+                            "revise":                       "1.0.x",
+                            "riffle":                       "1.0.x",
                             "rimraf":                       "2.5.1"
     },
     "main":                 "designate",
