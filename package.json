@@ -1,7 +1,6 @@
 {
     "name":                 "designate",
     "version":              "1.0.0",
-    "author":               "Alan Gutierrez <alan@prettyrobots.com>",
     "description":
 
       "Iterate an MVCC b-tree cursor selecting the most recent version of a record.",
@@ -11,10 +10,10 @@
                             "btree", "leveldb", "levelup", "binary", "mvcc",
                             "database", "json", "b-tree", "concurrent", "persistence"
     ],
+    "author":               "Alan Gutierrez <alan@prettyrobots.com>",
     "homepage":             "https://github.com/bigeasy/designate",
     "bugs":                 "https://github.com/bigeasy/designate/issues",
     "license":              "MIT",
-    "main":                 "designate",
     "repository":
     {
                             "type": "git",
@@ -32,6 +31,7 @@
                             "riffle":                       "1.x",
                             "rimraf":                       "2.5.1"
     },
+    "main":                 "designate",
     "scripts":
     {
                             "test": "proof platform win32 && proof test */*/*.t.js || t/test"
