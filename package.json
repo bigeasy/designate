@@ -1,37 +1,39 @@
 {
-    "name":             "designate",
-    "version":          "1.0.0",
-    "author":           "Alan Gutierrez <alan@prettyrobots.com>",
-    "description":      "Iterate an MVCC b-tree cursor selecting the most recent version of a record.",
+    "name":                 "designate",
+    "version":              "1.0.0",
+    "author":               "Alan Gutierrez <alan@prettyrobots.com>",
+    "description":
+
+      "Iterate an MVCC b-tree cursor selecting the most recent version of a record.",
+
     "keywords":
     [
-                        "btree", "leveldb", "levelup", "binary", "mvcc",
-                        "database", "json", "b-tree", "concurrent", "persistence"
+                            "btree", "leveldb", "levelup", "binary", "mvcc",
+                            "database", "json", "b-tree", "concurrent", "persistence"
     ],
-    "contributors":     [],
-    "homepage":         "https://github.com/bigeasy/designate",
-    "bugs":             "https://github.com/bigeasy/designate/issues",
-    "license":          "MIT",
-    "main":             "designate",
+    "homepage":             "https://github.com/bigeasy/designate",
+    "bugs":                 "https://github.com/bigeasy/designate/issues",
+    "license":              "MIT",
+    "main":                 "designate",
     "repository":
     {
-                        "type": "git",
-                        "url": "http://github.com/bigeasy/designate.git"
+                            "type": "git",
+                            "url": "http://github.com/bigeasy/designate.git"
     },
     "dependencies":
     {
-                        "cadence":            "1.x"
+                            "cadence":                      "1.x"
     },
     "devDependencies":
     {
-                        "b-tree":             "1.x",
-                        "proof":              "1.x",
-                        "revise":             "1.x",
-                        "riffle":             "1.x",
-                        "rimraf":             "2.5.1"
+                            "b-tree":                       "1.x",
+                            "proof":                        "1.x",
+                            "revise":                       "1.x",
+                            "riffle":                       "1.x",
+                            "rimraf":                       "2.5.1"
     },
     "scripts":
     {
-                        "test": "proof platform win32 && proof test */*/*.t.js || t/test"
+                            "test": "proof platform win32 && proof test */*/*.t.js || t/test"
     }
 }
