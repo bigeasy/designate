@@ -1,7 +1,7 @@
 require('./proof')(2, prove)
 
 function prove (async, assert) {
-    var designate = require('../..')
+    var designate = require('..')
     var revise = require('revise')
     var riffle = require('riffle')
     var visited = {}
