@@ -1,6 +1,6 @@
 {
     "name":                 "designate",
-    "version":              "1.0.1",
+    "version":              "1.0.2",
     "description":
 
       "Iterate an MVCC b-tree cursor selecting the most recent version of a record.",
