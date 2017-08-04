@@ -41,7 +41,7 @@ function prove (async, assert) {
             })()
         }, function () {
             assert(records, [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i' ], 'keyed records')
-            assert(Object.keys(visited), [ 0 ], 'keyed visited')
+            assert(Object.keys(visited), [ '0' ], 'keyed visited')
             designator.unlock(async())
         })
     }, function () {

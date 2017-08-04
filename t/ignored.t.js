@@ -54,7 +54,7 @@ function prove (async, assert) {
                { value: 'h', version: 0 },
                { value: 'i', version: 0 } ]
             , 'forward records')
-            assert(Object.keys(visited).sort(), [ 0, 1, 2 ], 'forward visited')
+            assert(Object.keys(visited).sort(), [ '0', '1', '2' ], 'forward visited')
         })
     }, function () {
         riffle.reverse(strata, async())
@@ -88,7 +88,7 @@ function prove (async, assert) {
                { value: 'b', version: 0 },
                { value: 'a', version: 1 } ]
             , 'reverse records')
-            assert(Object.keys(visited).sort(), [ 0, 1, 2 ], 'reverse visited')
+            assert(Object.keys(visited).sort(), [ '0', '1', '2' ], 'reverse visited')
         })
     }, function () {
         strata.close(async())
