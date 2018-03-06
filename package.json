@@ -17,7 +17,7 @@
     "repository":
     {
                             "type": "git",
-                            "url": "http://github.com/bigeasy/designate.git"
+                            "url": "bigeasy/designate"
     },
     "dependencies":
     {
