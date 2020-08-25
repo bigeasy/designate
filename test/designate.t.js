@@ -26,54 +26,33 @@ require('proof')(3, async okay => {
     const forward = advance.forward([ items ])
     const gathered = []
     {
-        const visited = {}
-        for await (const items of designate.forward(comparator, forward, versions, visited)) {
+        for await (const items of designate.forward(comparator, forward, versions)) {
             for (const item of items) {
                 gathered.push(item)
             }
         }
-        okay({
-            items: gathered,
-            visited: Object.keys(visited).sort()
-        }, {
-            items: expected,
-            visited: [ '1', '2', '3' ]
-        }, 'forward')
+        okay(gathered, expected, 'forward')
     }
 
     {
-        const visited = {}
         const reverse = advance.reverse([ items ])
         gathered.length = 0
-        for await (const items of designate.reverse(comparator, reverse, versions, visited)) {
+        for await (const items of designate.reverse(comparator, reverse, versions)) {
             for (const item of items) {
                 gathered.push(item)
             }
         }
-        okay({
-            items: gathered,
-            visited: Object.keys(visited).sort()
-        }, {
-            items: expected.slice().reverse(),
-            visited: [ '1', '2', '3' ]
-        }, 'reverse')
+        okay(gathered, expected.slice().reverse(), 'reverse')
     }
 
     {
-        const visited = {}
         const empty = advance.forward([])
         gathered.length = 0
-        for await (const items of designate.forward(comparator, empty, versions, visited)) {
+        for await (const items of designate.forward(comparator, empty, versions)) {
             for (const item of items) {
                 gathered.push(item)
             }
         }
-        okay({
-            items: gathered,
-            visited: visited
-        }, {
-            items: [],
-            visited: {}
-        }, 'empty')
+        okay(gathered, [], 'EMpty')
     }
 })

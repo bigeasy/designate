@@ -1,4 +1,4 @@
-module.exports = function (forward, comparator, paginator, versions, visited) {
+module.exports = function (forward, comparator, paginator, versions) {
     const iterator = paginator[Symbol.asyncIterator]()
     let done = false, candidate = null
     return {
@@ -19,7 +19,6 @@ module.exports = function (forward, comparator, paginator, versions, visited) {
             }
             const gathered = []
             for (const item of next.value) {
-                visited[item.key.version] = true
                 if (versions[item.key.version]) {
                     if (candidate == null) { // It will be true just once, but hey.
                         candidate = item
