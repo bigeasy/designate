@@ -9,7 +9,7 @@ module.exports = function (forward, comparator, paginator, versions) {
             if (done) {
                 return { done: true, value: null }
             }
-            const next = iterator.next()
+            const next = await iterator.next()
             if (next.done) {
                 done = true
                 if (candidate == null) {
