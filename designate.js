@@ -1,4 +1,4 @@
-module.exports = function (forward, comparator, paginator, versions) {
+module.exports = function (forward, comparator, paginator) {
     const iterator = paginator[Symbol.asyncIterator]()
     let done = false, candidate = null
     return {
@@ -19,16 +19,14 @@ module.exports = function (forward, comparator, paginator, versions) {
             }
             const gathered = []
             for (const item of next.value) {
-                if (versions[item.key.version]) {
-                    if (candidate == null) { // It will be true just once, but hey.
-                        candidate = item
-                    } else if (comparator(candidate.key.value, item.key.value) != 0) {
-                        gathered.push(candidate)
-                        candidate = item
-                    }
-                    if (forward) {
-                        candidate = item
-                    }
+                if (candidate == null) { // It will be true just once, but hey.
+                    candidate = item
+                } else if (comparator(candidate.key.value, item.key.value) != 0) {
+                    gathered.push(candidate)
+                    candidate = item
+                }
+                if (forward) {
+                    candidate = item
                 }
             }
             return { done: false, value: gathered }

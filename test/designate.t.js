@@ -53,6 +53,6 @@ require('proof')(3, async okay => {
                 gathered.push(item)
             }
         }
-        okay(gathered, [], 'EMpty')
+        okay(gathered, [], 'empty')
     }
 })
