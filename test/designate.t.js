@@ -3,11 +3,11 @@ require('proof')(3, async okay => {
     const designate = require('..')
 
     const items = [{
-        key: { version: 1, value: 'a' }
+        key: { version: 3, value: 'a' }
     }, {
         key: { version: 2, value: 'a' }
     }, {
-        key: { version: 3, value: 'a' }
+        key: { version: 1, value: 'a' }
     }, {
         key: { version: 1, value: 'd' }
     }]
@@ -48,7 +48,7 @@ require('proof')(3, async okay => {
     {
         const empty = advance.forward([])
         gathered.length = 0
-        for await (const items of designate.forward(comparator, empty, versions)) {
+        for await (const items of designate.reverse(comparator, empty, versions)) {
             for (const item of items) {
                 gathered.push(item)
             }
