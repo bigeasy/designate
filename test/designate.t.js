@@ -22,13 +22,18 @@ require('proof')(3, async okay => {
         return left < right ? -1 : left > right ? 1 : 0
     }
 
-    const versions = { 1: true, 3: true }
-    const forward = advance.forward([ items ])
-    const gathered = []
     {
-        for await (const items of designate.forward(comparator, forward, versions)) {
-            for (const item of items) {
-                gathered.push(item)
+        const forward = advance.forward([ items ])
+        const gathered = [], promises = []
+        const iterator = designate.forward(comparator, forward)
+        while (! iterator.done) {
+            iterator.next(promises, items => {
+                for (const item of items) {
+                    gathered.push(item)
+                }
+            })
+            while (promises.length != 0) {
+                await promises.shift()
             }
         }
         okay(gathered, expected, 'forward')
@@ -36,10 +41,16 @@ require('proof')(3, async okay => {
 
     {
         const reverse = advance.reverse([ items ])
-        gathered.length = 0
-        for await (const items of designate.reverse(comparator, reverse, versions)) {
-            for (const item of items) {
-                gathered.push(item)
+        const gathered = [], promises = []
+        const iterator = designate.reverse(comparator, reverse)
+        while (! iterator.done) {
+            iterator.next(promises, items => {
+                for (const item of items) {
+                    gathered.push(item)
+                }
+            })
+            while (promises.length != 0) {
+                await promises.shift()
             }
         }
         okay(gathered, expected.slice().reverse(), 'reverse')
@@ -47,12 +58,13 @@ require('proof')(3, async okay => {
 
     {
         const empty = advance.forward([])
-        gathered.length = 0
-        for await (const items of designate.reverse(comparator, empty, versions)) {
+        const gathered = [], promises = []
+        const iterator = designate.reverse(comparator, empty)
+        iterator.next(promises, items => {
             for (const item of items) {
                 gathered.push(item)
             }
-        }
+        })
         okay(gathered, [], 'empty')
     }
 })

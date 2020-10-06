@@ -1,26 +1,22 @@
-module.exports = function (comparator, paginator) {
-    const iterator = paginator[Symbol.asyncIterator]()
+module.exports = function (comparator, nested) {
     let done = false, previous = null
-    return {
-        [Symbol.asyncIterator]: function () {
-            return this
-        },
-        next: async function () {
-            const next = await iterator.next()
-            if (next.done) {
-                return { done: true, value: null }
-            }
-            const gathered = []
-            for (const item of next.value) {
-                if (
-                    previous == null || // It will be true just once, but hey.
-                    comparator(previous.key.value, item.key.value) != 0
-                ) {
-                    gathered.push(item)
-                    previous = item
+    const iterator = {
+        done: false,
+        next (promises, consume, terminator = iterator) {
+            nested.next(promises, items => {
+                const gathered = []
+                for (const item of items) {
+                    if (
+                        previous == null || // It will be true just once, but hey.
+                        comparator(previous.key.value, item.key.value) != 0
+                    ) {
+                        gathered.push(item)
+                        previous = item
+                    }
                 }
-            }
-            return { done: false, value: gathered }
+                consume(gathered)
+            }, terminator)
         }
     }
+    return iterator
 }
