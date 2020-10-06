@@ -1,4 +1,4 @@
-module.exports = function (comparator, nested) {
+module.exports = function (comparator, undesignated) {
     let candidate = null
     const scope = { done: false }
     const iterator = {
@@ -7,7 +7,7 @@ module.exports = function (comparator, nested) {
             if (scope.done) {
                 terminator.done = true
             } else {
-                nested.next(promises, items => {
+                undesignated.next(promises, items => {
                     const gathered = []
                     for (const item of items) {
                         if (

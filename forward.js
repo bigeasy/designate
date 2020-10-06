@@ -1,9 +1,9 @@
-module.exports = function (comparator, nested) {
+module.exports = function (comparator, undesignated) {
     let done = false, previous = null
     const iterator = {
         done: false,
         next (promises, consume, terminator = iterator) {
-            nested.next(promises, items => {
+            undesignated.next(promises, items => {
                 const gathered = []
                 for (const item of items) {
                     if (
