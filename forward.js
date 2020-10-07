@@ -8,7 +8,7 @@ module.exports = function (comparator, undesignated) {
                 for (const item of items) {
                     if (
                         previous == null || // It will be true just once, but hey.
-                        comparator(previous.key.value, item.key.value) != 0
+                        comparator(previous.key[0], item.key[0]) != 0
                     ) {
                         gathered.push(item)
                         previous = item

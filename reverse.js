@@ -12,7 +12,7 @@ module.exports = function (comparator, undesignated) {
                     for (const item of items) {
                         if (
                             candidate != null && // It will be true just once, but hey.
-                            comparator(candidate.key.value, item.key.value) != 0
+                            comparator(candidate.key[0], item.key[0]) != 0
                         ) {
                             gathered.push(candidate)
                         }
