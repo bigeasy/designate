@@ -3,19 +3,19 @@ require('proof')(3, async okay => {
     const designate = require('..')
 
     const items = [{
-        key: { version: 3, value: 'a' }
+        key: [ 'a', 3 ]
     }, {
-        key: { version: 2, value: 'a' }
+        key: [ 'a', 2 ]
     }, {
-        key: { version: 1, value: 'a' }
+        key: [ 'a', 1 ]
     }, {
-        key: { version: 1, value: 'd' }
+        key: [ 'd', 1 ]
     }]
 
     const expected = [{
-        key: { version: 3, value: 'a' }
+        key: [ 'a', 3 ]
     }, {
-        key: { version: 1, value: 'd' }
+        key: [ 'd', 1 ]
     }]
 
     function comparator (left, right) {
