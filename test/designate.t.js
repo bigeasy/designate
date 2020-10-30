@@ -1,6 +1,7 @@
-require('proof')(3, async okay => {
+require('proof')(4, async okay => {
     const advance = require('advance')
     const designate = require('..')
+    const ascension = require('ascension')
 
     const items = [{
         key: [ 'a', 3 ]
@@ -18,9 +19,7 @@ require('proof')(3, async okay => {
         key: [ 'd', 1 ]
     }]
 
-    function comparator (left, right) {
-        return left < right ? -1 : left > right ? 1 : 0
-    }
+    const comparator = ascension([ String ], object => object)
 
     {
         const forward = advance.forward([ items ])
@@ -66,5 +65,46 @@ require('proof')(3, async okay => {
             }
         })
         okay(gathered, [], 'empty')
+    }
+
+    {
+        const comparator = ascension([ String, Number ], object => object)
+        const mapped = advance.forward([[{
+            key: [[ 'a' ]],
+            value: [[ 'a' ]],
+            items: [{
+                key: [[ 'a', 0 ], 2 ]
+            }, {
+                key: [[ 'a', 0 ], 1 ]
+            }, {
+                key: [[ 'a', 1 ], 0 ]
+            }]
+        }], [{
+            key: [[ 'b' ]],
+            value: [[ 'b' ]],
+            items: []
+        }]])
+        const gathered = []
+        const iterator = designate.map(comparator, mapped)
+        while (! iterator.done) {
+            iterator.next(null, items => {
+                for (const item of items) {
+                    gathered.push(item)
+                }
+            })
+        }
+        okay(gathered, [{
+            key: [[ 'a' ]],
+            value: [[ 'a' ]],
+            items: [{
+                key: [[ 'a', 0 ], 2 ],
+            }, {
+                key: [[ 'a', 1 ], 0 ],
+            }]
+        }, {
+            key: [[ 'b' ]],
+            value: [[ 'b' ]],
+            items: []
+        }], 'mapped')
     }
 })
