@@ -22,9 +22,9 @@ require('proof')(4, async okay => {
     const comparator = ascension([ String ], object => object)
 
     {
-        const forward = advance.forward([ items ])
+        const forward = advance([ items ])
         const gathered = [], promises = []
-        const iterator = designate.forward(comparator, forward)
+        const iterator = designate(comparator, forward)
         while (! iterator.done) {
             iterator.next(promises, items => {
                 for (const item of items) {
@@ -39,9 +39,9 @@ require('proof')(4, async okay => {
     }
 
     {
-        const reverse = advance.reverse([ items ])
+        const reverse = advance([ items ], { reverse: true })
         const gathered = [], promises = []
-        const iterator = designate.reverse(comparator, reverse)
+        const iterator = designate(comparator, reverse)
         while (! iterator.done) {
             iterator.next(promises, items => {
                 for (const item of items) {
@@ -56,9 +56,9 @@ require('proof')(4, async okay => {
     }
 
     {
-        const empty = advance.forward([])
+        const empty = advance([])
         const gathered = [], promises = []
-        const iterator = designate.reverse(comparator, empty)
+        const iterator = designate(comparator, empty)
         iterator.next(promises, items => {
             for (const item of items) {
                 gathered.push(item)
@@ -69,7 +69,7 @@ require('proof')(4, async okay => {
 
     {
         const comparator = ascension([ String, Number ], object => object)
-        const mapped = advance.forward([[{
+        const mapped = advance([[{
             key: [[ 'a' ]],
             value: [[ 'a' ]],
             items: [{
@@ -83,9 +83,9 @@ require('proof')(4, async okay => {
             key: [[ 'b' ]],
             value: [[ 'b' ]],
             items: []
-        }]])
+        }]], { map: true })
         const gathered = []
-        const iterator = designate.map(comparator, mapped)
+        const iterator = designate(comparator, mapped)
         while (! iterator.done) {
             iterator.next(null, items => {
                 for (const item of items) {
