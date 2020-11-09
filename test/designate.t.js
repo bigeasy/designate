@@ -19,7 +19,7 @@ require('proof')(4, async okay => {
         key: [ 'd', 1 ]
     }]
 
-    const comparator = ascension([ String ], object => object)
+    const comparator = ascension([ String ], object => [ object ])
 
     {
         const forward = advance([ items ])
