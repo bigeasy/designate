@@ -1,5 +1,6 @@
 require('proof')(4, async okay => {
     const advance = require('advance')
+    const whittle = require('whittle')
     const designate = require('..')
     const ascension = require('ascension')
 
@@ -19,7 +20,7 @@ require('proof')(4, async okay => {
         key: [ 'd', 1 ]
     }]
 
-    const comparator = ascension([ String ], object => [ object ])
+    const comparator = whittle(ascension([ String ]), key => [ key ])
 
     {
         const forward = advance([ items ])
@@ -68,7 +69,7 @@ require('proof')(4, async okay => {
     }
 
     {
-        const comparator = ascension([ String, Number ], object => object)
+        const comparator = ascension([ String, Number ])
         const mapped = advance([[{
             key: [[ 'a' ]],
             value: [[ 'a' ]],
