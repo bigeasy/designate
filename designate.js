@@ -6,8 +6,8 @@ module.exports = function (comparator, source) {
             let done = false, previous = null
             const iterator = {
                 done: false,
-                next (promises, consume, terminator = iterator) {
-                    source.next(promises, items => {
+                next (trampoline, consume, terminator = iterator) {
+                    source.next(trampoline, items => {
                         const gathered = []
                         for (const item of items) {
                             if (
