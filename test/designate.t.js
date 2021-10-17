@@ -20,7 +20,7 @@ require('proof')(4, async okay => {
         key: [ 'd', 1 ]
     }]
 
-    const comparator = whittle(ascension([ String ]), key => [ key ])
+    const comparator = whittle(ascension([ String ], true), key => [ key ])
 
     {
         const forward = advance([ items ])
